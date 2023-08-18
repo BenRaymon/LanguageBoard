@@ -10,6 +10,8 @@ import android.util.Log;
 import android.widget.Toast;
 import java.io.File;
 
+import androidx.core.content.ContextCompat;
+
 public class SBCard{
 
     private String outputFile, name, image;
@@ -18,16 +20,20 @@ public class SBCard{
     //static mediaplayer to prevent multiple audio files playing at once
     private static MediaPlayer mediaPlayer;
 
-    public SBCard(String name, String image, String soundboardName){
+    public SBCard(String name, String image, String soundboardName, Context context){
         this.name = name;
         this.image = image;
         front = true;
         recording = false;
         //set the output file to /soundboards/{SOUNDBOARD CATEGORY}/{CARD NAME}.ogg
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/soundboards/" + soundboardName +"/" + name + ".ogg";
+        outputFile = context.getExternalFilesDir(null) + "/soundboards/" + soundboardName +"/" + name + ".ogg";
         //If the directory doesn't exist, make one
-        File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/soundboards/" + soundboardName);
-        try { path.mkdirs(); }  catch(Exception E){}
+        File path = new File(context.getExternalFilesDir(null) + "/soundboards/" + soundboardName);
+        try {
+            path.mkdirs();
+        }  catch(Exception E){
+            System.out.println("File path exception: " + E);
+        }
     }
 
     public void setFront() {
@@ -74,7 +80,9 @@ public class SBCard{
             mediaPlayer.prepare();
             mediaPlayer.start();
             Toast.makeText(mContext, "Playing Audio", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            System.out.println("Play exception: " + e);
+        }
 
         return true;
     }
@@ -92,7 +100,9 @@ public class SBCard{
             myAudioRecorder.prepare();
             myAudioRecorder.start();
             Toast.makeText(mContext, "Recording Started", Toast.LENGTH_SHORT).show();
-        } catch (Exception E) { }
+        } catch (Exception E) {
+            System.out.println("Start exception: " + E);
+        }
     }
 
     /*

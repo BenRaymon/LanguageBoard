@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                     ArrayList<SBCard> cards = new ArrayList<>();
                     //loop through documents creating list of cards
                     for(int i = 0; i < list.size(); i++){
-                        cards.add(new SBCard(list.get(i).get("name").toString(), list.get(i).get("imageURL").toString(), names.get(y)));
+                        cards.add(new SBCard(list.get(i).get("name").toString(), list.get(i).get("imageURL").toString(), names.get(y), mApp.getApplicationContext()));
                     }
                     //create a new soundboards with the list of cards
                     soundboards.add(new Soundboard(names.get(y), images.get(y), cards));

@@ -221,7 +221,7 @@ public class UploadItem extends AppCompatActivity {
                 progressDialog.dismiss();
                 if(itemEditText.getVisibility() == View.GONE)
                     sbCards.remove(itemSpinner.getSelectedItemPosition());
-                sbCards.add(new SBCard(name,url, sbCategory));
+                sbCards.add(new SBCard(name,url, sbCategory, mApp.getApplicationContext()));
                 completeMessage();
             }
         });
